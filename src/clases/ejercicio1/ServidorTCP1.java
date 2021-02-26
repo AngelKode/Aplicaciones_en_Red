@@ -31,7 +31,7 @@ public class ServidorTCP1 {
             entrada = cliente.getInputStream();
             
             //Mandamos mensaje al cliente
-            salida.write("Bienvenido Cliente!".getBytes());//le mandamos al cliente el numero 250
+            salida.write("Bienvenido Cliente!".getBytes());//le mandamos al cliente un mensaje
             
             //Obtenemos mensaje del cliente
             byte msg[] = new byte[15];
