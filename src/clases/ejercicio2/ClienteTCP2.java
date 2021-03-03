@@ -53,9 +53,6 @@ public class ClienteTCP2 {
               }
             }
             
-            //TODO
-            //Funcionamiento BufferedReader, BufferedWriter, PrintReader y PrintWriter
-            
         } catch (UnknownHostException ex) {
             ex.printStackTrace();
         } catch (IOException ex){
