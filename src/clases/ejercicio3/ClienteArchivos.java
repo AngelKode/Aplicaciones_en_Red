@@ -7,8 +7,6 @@ package clases.ejercicio3;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.file.FileSystemException;
-import java.nio.file.FileSystemNotFoundException;
 import javax.swing.JFileChooser;
 /**
  *
@@ -54,8 +52,8 @@ public class ClienteArchivos {
                 dato_salida.writeLong(tam_archivo);
                 //enviamos el nombre y la extension del archivo
                 String nombre_archivo = archivo.getName();
-                System.out.println(nombre_archivo);
-                System.out.println("Nombre del archivo: " + nombre_archivo);
+                    System.out.println("Nombre del archivo: " + nombre_archivo);
+                //Mandamos el nombre del archivo al servidor
                 dato_salida.writeUTF(nombre_archivo);
                 //Para guardar los bytes del archivo
                 byte buffer[] = new byte[(int)tam_archivo];
