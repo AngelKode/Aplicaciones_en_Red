@@ -64,6 +64,10 @@ public class ClienteArchivos {
                     dato_salida.write(buffer,0,bytes);//mandamos a la salida
                     dato_salida.flush();//Limpiamos el buffer y mandamos al servidor
                 }
+                
+                //Le decimos al cliente que su archivo se ha subido
+                System.out.println(dato_entrada.readUTF());
+                
             } catch (Exception e) {
                 System.out.println("Error, no se eligió el archivo");
                 e.printStackTrace();

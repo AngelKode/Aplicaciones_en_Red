@@ -56,6 +56,8 @@ public class ServidorArchivos {
                 }
                 //Cerramos el flujo
                 escritura_archivo.close();
+                //mandamos un mensaje al cliente de que su archivo se subió correctamente
+                datos_salida.writeUTF("Su archivo se ha subido correctamente");
                 cliente.close();
             }
         } catch (IOException e) {
