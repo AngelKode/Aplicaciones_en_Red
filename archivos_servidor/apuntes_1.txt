@@ -1,0 +1,7 @@
+Esta es una práctica de el tema de sockets transfiriendo archivos.
+
+Probando
+
+La
+
+Funcionalidad
