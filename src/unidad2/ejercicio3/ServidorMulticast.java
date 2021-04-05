@@ -5,13 +5,12 @@
  */
 package unidad2.ejercicio3;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import javax.swing.JFileChooser;
 
 /**
@@ -25,10 +24,11 @@ public class ServidorMulticast {
     private final MulticastSocket servidor;
     private DatagramPacket paquete;
     private final InetAddress ip_grupo;
-    private final ByteBuffer buffer;
-    private final FileChannel canal;
+    private byte[] buffer;
+    private final File archivo;
+    private final FileInputStream out;
 
-    public ServidorMulticast() throws IOException, InterruptedException {
+    public ServidorMulticast() throws IOException{
         //Inicializamos el servidor
         this.servidor = new MulticastSocket(port);
         //Establecemos direccion IP multicast
@@ -39,25 +39,40 @@ public class ServidorMulticast {
         //Obteniendo archivo
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
-        RandomAccessFile archivo = new RandomAccessFile(chooser.getSelectedFile(), "rw");
-        this.canal = archivo.getChannel();
+        this.archivo = chooser.getSelectedFile();
+        this.out = new FileInputStream(this.archivo);
         
-        this.buffer = ByteBuffer.allocate(32768);
+        this.buffer = new byte[16];
         
-        while(this.canal.read(buffer) > 0){
-            this.buffer.flip();//Prepara para lectura
-            this.paquete = new DatagramPacket(this.buffer.array(),0,this.buffer.remaining(),this.ip_grupo,port);
+        System.out.println("Servidor inicializado...");
+    }
+    
+    public void mandarArchivo() throws IOException, InterruptedException{
+        while(this.out.read(this.buffer) > 0){
+            this.paquete = new DatagramPacket(this.buffer,this.buffer.length,this.ip_grupo,this.port);
             this.servidor.send(this.paquete);
-            this.buffer.clear();
             Thread.sleep(100);
         }
         
-        System.out.println("Se mando el audio");
-        this.canal.close();
+        System.out.println("Se mando el archivo");
+        this.out.close();
+    }
+    public void mandarExtensionArchivo() throws IOException{
+        String nombre_archivo = this.archivo.getName();
+        int punto_final = nombre_archivo.lastIndexOf(".");
+        String extension = nombre_archivo.substring(punto_final + 1, nombre_archivo.length());
+        this.buffer = extension.getBytes();//Mandamos la extension
+        this.paquete = new DatagramPacket(this.buffer,extension.length() ,this.ip_grupo,this.port);//Creamos el paquete
+        this.servidor.send(this.paquete);//Enviamos al grupo
+        this.buffer = new byte[32768];
     }
     
     public static void main(String[] args) throws IOException, InterruptedException {
         ServidorMulticast servidor = new ServidorMulticast();
+        servidor.mandarExtensionArchivo();
+        Thread.sleep(500);
+        System.out.println("Mandando archivo...");
+        servidor.mandarArchivo();
     }
      
 }
