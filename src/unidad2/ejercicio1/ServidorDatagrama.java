@@ -27,6 +27,7 @@ public class ServidorDatagrama {
         try {
             System.out.println("Servidor");
             this.servidor = new DatagramSocket(2000);
+            System.out.println(servidor.getPort());
             this.buffer = new byte[512];
             //creamos paquetes de datagrama par recibir
             this.recibe = new DatagramPacket(this.buffer,0,this.buffer.length);
