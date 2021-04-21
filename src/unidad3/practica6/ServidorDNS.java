@@ -98,7 +98,13 @@ public class ServidorDNS {
             //Si es nulo, la url está mal escrita
             if(uri.getHost() != null){
                 InetAddress address = InetAddress.getByName(host);
-                return ("\nProtocolo: " + urlHerramienta.getProtocol()+"\nHost: " + address.getHostAddress()+"\nArchivo a acceder: " + urlHerramienta.getFile() +"\nPuerto del Cliente: " + urlHerramienta.getDefaultPort() + "\nQuery: " + urlHerramienta.getQuery());
+                
+                if(urlHerramienta.getFile().contains("?")){
+                    return ("\nProtocolo: " + urlHerramienta.getProtocol()+"\nHost: " + address.getHostAddress()+"\nArchivo a acceder: " + urlHerramienta.getFile().substring(0,urlHerramienta.getFile().indexOf('?')) +"\nPuerto del Cliente: " + urlHerramienta.getDefaultPort() + "\nQuery: " + urlHerramienta.getQuery());
+                }else{
+                    return ("\nProtocolo: " + urlHerramienta.getProtocol()+"\nHost: " + address.getHostAddress()+"\nArchivo a acceder: " + urlHerramienta.getFile() +"\nPuerto del Cliente: " + urlHerramienta.getDefaultPort() + "\nQuery: " + urlHerramienta.getQuery());
+                }
+                
             }
             return "Ingresa una URL valida";
         }
@@ -107,7 +113,12 @@ public class ServidorDNS {
         if(isIP(host)){
             //IP correcta
             InetAddress address = InetAddress.getByName(host);
-            return ("\nProtocolo: " + urlHerramienta.getProtocol()+"\nHost: " + address.getHostName()+"\nArchivo a acceder: " + urlHerramienta.getFile()+"\nPuerto del Cliente: " + urlHerramienta.getDefaultPort() + "\nQuery: " + urlHerramienta.getQuery());
+            
+            if(urlHerramienta.getFile().contains("?")){
+                    return ("\nProtocolo: " + urlHerramienta.getProtocol()+"\nHost: " + address.getHostName()+"\nArchivo a acceder: " + urlHerramienta.getFile().substring(0,urlHerramienta.getFile().indexOf('?')) +"\nPuerto del Cliente: " + urlHerramienta.getDefaultPort() + "\nQuery: " + urlHerramienta.getQuery());
+                }else{
+                    return ("\nProtocolo: " + urlHerramienta.getProtocol()+"\nHost: " + address.getHostName()+"\nArchivo a acceder: " + urlHerramienta.getFile() +"\nPuerto del Cliente: " + urlHerramienta.getDefaultPort() + "\nQuery: " + urlHerramienta.getQuery());
+                }
         }
                 
         //IP incorrecta
