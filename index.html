@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Login HTTP - Practica 7</title>
 </head>
 <body>
-	<h1>HOLA</h1>
+	<center>
+		<h2>LOGIN USANDO EL PROTOCOLO HTTP</h2>
+		<div>
+			<form action="login" method="GET">
+				<h4>Usuario</h4>
+					<input name="user" type="text">
+				<h4>Contraseña</h4>
+					<input name="passwd" type="password">
+				<br>
+				<br>
+				<button type="submit" formaction="iniciarSesion">
+					Iniciar Sesion
+				</button>
+			</form>
+		</div>
+	</center>
 </body>
 </html>
 
-<!--const chainAsync = fns => {
-  let curr = 0;
-  const last = fns[fns.length - 1];
-  const next = () => {
-    const fn = fns[curr++];
-    fn === last ? fn() : fn(next);
-  };
-  next();
-};-->

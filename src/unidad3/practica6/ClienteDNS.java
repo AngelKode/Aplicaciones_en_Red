@@ -11,8 +11,6 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.SocketException;
-import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
 
 /**
  *
@@ -29,7 +27,7 @@ public class ClienteDNS {
         try {
             System.out.println("Cliente conectandose al servidor...");
             this.cliente = new DatagramSocket();
-            this.buffer = "http://www.virtual.zacatecas.ipn.mx/moodle/mod/assign/view.php?id=6407".getBytes();
+            this.buffer = "http://142.250.188.228/".getBytes();
             enviarDatos();
             recibirRespuesta();
     
